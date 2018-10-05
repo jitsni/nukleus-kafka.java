@@ -260,6 +260,7 @@ public class FetchResponseDecoder implements ResponseDecoder
         if (response != null)
         {
             topicCount = response.topicCount();
+            System.out.printf("topicCount = %d\n", topicCount);
             newOffset = response.limit();
             decoderState = this::decodeTopicResponse;
         }
@@ -280,6 +281,8 @@ public class FetchResponseDecoder implements ResponseDecoder
             {
                 topicCount--;
                 topicName = response.name().asString();
+                System.out.printf("topicName = %s\n", topicName);
+
                 messageDispatcher = getDispatcher.apply(topicName);
                 partitionCount = response.partitionCount();
                 decoderState = this::decodePartitionResponse;
